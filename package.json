@@ -1,0 +1,36 @@
+{
+  "name": "@alicloud/sso-cli",
+  "version": "1.0.0",
+  "description": "Alibaba Cloud SSO command line interface",
+  "bin": {
+    "acs-sso": "bin/acs-sso.js"
+  },
+  "scripts": {
+    "test": "mocha -R spec test/**/*.test.js",
+    "cov": "nyc -r html npm run test",
+    "lint": "eslint --fix ./bin ./lib ./test ./commands"
+  },
+  "keywords": [
+    "AlibabaCloud",
+    "SSO",
+    "CLI"
+  ],
+  "author": "Jackson Tian",
+  "license": "Apache License 2.0",
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "mocha": "^9.0.0"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "commands"
+  ],
+  "dependencies": {
+    "httpx": "^2.2.7",
+    "inquirer": "^8.1.1",
+    "kitx": "^2.1.0",
+    "minimist": "^1.2.5",
+    "open": "^8.2.0"
+  }
+}
