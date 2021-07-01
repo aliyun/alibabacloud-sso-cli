@@ -6,6 +6,7 @@
     "acs-sso": "bin/acs-sso.js"
   },
   "scripts": {
+    "ci": "npm run lint && npm run cov && codecov",
     "test": "mocha -R spec test/**/*.test.js",
     "cov": "nyc -r html npm run test",
     "lint": "eslint --fix ./bin ./lib ./test ./commands"
@@ -16,10 +17,12 @@
     "CLI"
   ],
   "author": "Jackson Tian",
-  "license": "Apache License 2.0",
+  "license": "Apache-2.0",
   "devDependencies": {
+    "codecov": "^3.8.2",
     "eslint": "^7.29.0",
-    "mocha": "^9.0.0"
+    "mocha": "^9.0.0",
+    "nyc": "^15.1.0"
   },
   "files": [
     "bin",
@@ -32,5 +35,17 @@
     "kitx": "^2.1.0",
     "minimist": "^1.2.5",
     "open": "^8.2.0"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aliyun/alibabacloud-sso-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aliyun/alibabacloud-sso-cli/issues"
+  },
+  "homepage": "https://github.com/aliyun/alibabacloud-sso-cli#readme"
 }
