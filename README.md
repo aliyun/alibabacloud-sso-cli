@@ -49,15 +49,21 @@ $ acs-sso configure
 
 ```sh
 $ acs-sso configure
-? please input 'signinUrl': https://signin-cn-hangzhou.alibabacloudsso.com/lzy/login
+? please input 'signinUrl': https://signin-******.alibabacloudsso.com/***/login
 configuration done!
 ```
+
+上面的 signinUrl 可以在云 SSO 控制台首页上获取，每个目录的链接各不相同。
 
 ### Login
 
 ```sh
 $ acs-sso login
 ```
+
+如果你的身份下，有多个账号或多个访问配置，将会提示您选择账号和配置。登录成功后，profile 会绑定这份账号和配置。
+
+下次登录将会使用登录成功后的缓存 STS 信息。
 
 #### 强制重新登录
 登录后会自动缓存，所以提供了 `--force` 来提供强制重新登录：
@@ -68,7 +74,7 @@ $ acs-sso login --force
 
 #### 支持切换 Profile
 
-使用 `--profile` 来支持不同的 profile 名字：
+默认情况下，使用的 profile 为 default。您可以使用 `--profile` 来支持不同的 profile 名字：
 
 ```sh
 $ acs-sso login --profile user1
