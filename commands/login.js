@@ -22,6 +22,10 @@ class Login {
       force: {
         required: false,
         description: 'ignore cached credential'
+      },
+      env: {
+        required: false,
+        description: 'print to environment variables'
       }
     };
   }
@@ -182,6 +186,16 @@ class Login {
     return result;
   }
 
+  display(data, env) {
+    if (env) {
+      console.log(`export ALIBABACLOUD_ACCESS_KEY_ID=${data.access_key_id}`);
+      console.log(`export ALIBABACLOUD_ACCESS_KEY_SECRET=${data.access_key_secret}`);
+      console.log(`export SECURITY_TOKEN=${data.sts_token}`);
+    } else {
+      console.log(JSON.stringify(data, null, 2));
+    }
+  }
+
   async run(argv) {
     const app = this.app;
     const cache = helper.loadSTSCache();
@@ -202,14 +216,14 @@ class Login {
       if (key) { // key 正常
         const sts = cache.map[key];
         if (sts && sts.expireTime > Date.now()) { // 有缓存且未过期
-          console.log(JSON.stringify(sts.data, null, 2));
+          this.display(sts.data, argv.env);
           return;
         }
       }
     }
 
     const result = await this.login(ctx);
-    console.log(JSON.stringify(result.data, null, 2));
+    this.display(result.data, argv.env);
   }
 }
 
