@@ -82,6 +82,29 @@ $ acs-sso login --profile user1
 
 未输入 `--profile` 的情况下，默认为上次成功登录的身份。
 
+#### 输出控制
+
+默认情况，输出的结果是适配于阿里云 CLI 外部进程模式：
+
+```sh
+{
+  "mode": "StsToken",
+  "access_key_id": "STS.NUyPeEoab****",
+  "access_key_secret": "GBubpmh****",
+  "sts_token": "CAIS****"
+}
+```
+
+您可以使用 `--env` 这个 flag 来控制输出为环境变量的模式：
+
+```sh
+export ALIBABACLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
+export ALIBABACLOUD_ACCESS_KEY_SECRET=GBubpmh****
+export SECURITY_TOKEN=CAIS****
+```
+
+上述环境变量可以与阿里云的相关工具进行配合。
+
 ## 配合阿里云 CLI
 
 ```sh
