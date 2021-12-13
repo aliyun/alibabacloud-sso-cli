@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/sso-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Alibaba Cloud SSO command line interface",
   "bin": {
     "acs-sso": "bin/acs-sso.js"
