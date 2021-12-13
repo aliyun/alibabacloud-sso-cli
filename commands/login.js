@@ -1,5 +1,7 @@
 'use strict';
 
+const os = require('os');
+
 const open = require('open');
 const kitx = require('kitx');
 const inquirer = require('inquirer');
@@ -37,7 +39,8 @@ class Login {
       protocol: signinUrl.protocol,
       // 为特殊环境可替换配置
       clientId: process.env.ALIBABACLOUD_SSO_CLIENT_ID || 'app-vaz16tltdxs96audqf35',
-      codeVerifier: kitx.makeNonce() + require('os').hostname()
+      // 长度至少 43, md5 值 32 位，整体 64 位
+      codeVerifier: kitx.makeNonce() + kitx.md5(os.hostname() + os.uptime() + process.uptime(), 'hex')
     });
 
     const result = await sso.startDeviceAuthorization({
