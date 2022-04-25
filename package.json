@@ -34,7 +34,8 @@
     "inquirer": "^8.1.1",
     "kitx": "^2.1.0",
     "minimist": "^1.2.5",
-    "open": "^8.2.0"
+    "open": "^8.2.0",
+    "proxy-agent": "^5.0.0"
   },
   "directories": {
     "lib": "lib",
