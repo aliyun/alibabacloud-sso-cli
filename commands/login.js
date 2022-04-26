@@ -119,7 +119,7 @@ class Login {
         console.error(`You don't have access to any account.`);
         process.exit(-1);
       }
-  
+
       let sa;
       if (accounts.length > 1) {
         // 有多个账号时启动选择
@@ -139,10 +139,10 @@ class Login {
       } else {
         sa = accounts[0];
       }
-  
+
       accountId = sa.AccountId;
       console.log(`used account: ${sa.DisplayName}(${accountId})`);
-  
+
       const configs = await portal.listAllAccessConfigurations({
         accountId: accountId
       });
@@ -165,9 +165,9 @@ class Login {
       } else {
         selectedConfig = configs[0];
       }
-  
+
       accessConfigurationId = selectedConfig.AccessConfigurationId;
-      console.log(`used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);  
+      console.log(`used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);
     }
 
     const credential = await portal.createCloudCredential({
