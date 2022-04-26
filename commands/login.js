@@ -108,61 +108,67 @@ class Login {
       accessToken: accessToken
     });
 
-    const accounts = await portal.listAllAccounts();
-
-    if (accounts.length === 0) {
-      console.error(`You don't have access to any account.`);
-      process.exit(-1);
-    }
-
-    let sa;
-    if (accounts.length > 1) {
-      // 有多个账号时启动选择
-      const choices = accounts.map((d) => {
-        return {
-          name: `${d.DisplayName}(${d.AccountId})`,
-          value: d
-        };
-      });
-      const account = await inquirer.prompt([{
-        type: 'list',
-        name: 'account',
-        choices: choices,
-        message: `You have ${accounts.length} accounts, please select one:`
-      }]);
-      sa = account.account;
+    let accountId, accessConfigurationId;
+    if (cache.profiles[profile]) {
+      // use the saved accountId, accessConfigurationId
+      [accountId, accessConfigurationId] = cache.profiles[profile].split(':');
     } else {
-      sa = accounts[0];
-    }
+      const accounts = await portal.listAllAccounts();
 
-    const accountId = sa.AccountId;
-    console.log(`used account: ${sa.DisplayName}(${accountId})`);
+      if (accounts.length === 0) {
+        console.error(`You don't have access to any account.`);
+        process.exit(-1);
+      }
 
-    const configs = await portal.listAllAccessConfigurations({
-      accountId: accountId
-    });
+      let sa;
+      if (accounts.length > 1) {
+        // 有多个账号时启动选择
+        const choices = accounts.map((d) => {
+          return {
+            name: `${d.DisplayName}(${d.AccountId})`,
+            value: d
+          };
+        });
+        const account = await inquirer.prompt([{
+          type: 'list',
+          name: 'account',
+          choices: choices,
+          message: `You have ${accounts.length} accounts, please select one:`
+        }]);
+        sa = account.account;
+      } else {
+        sa = accounts[0];
+      }
 
-    let selectedConfig;
-    if (configs.length > 1) {
-      const choices = configs.map((d) => {
-        return {
-          name: `${d.AccessConfigurationName}(${d.AccessConfigurationId})`,
-          value: d
-        };
+      accountId = sa.AccountId;
+      console.log(`used account: ${sa.DisplayName}(${accountId})`);
+
+      const configs = await portal.listAllAccessConfigurations({
+        accountId: accountId
       });
-      const answers = await inquirer.prompt([{
-        type: 'list',
-        name: 'configuration',
-        choices: choices,
-        message: `You have ${configs.length} access configurations, please select one:`
-      }]);
-      selectedConfig = answers.configuration;
-    } else {
-      selectedConfig = configs[0];
-    }
 
-    const accessConfigurationId = selectedConfig.AccessConfigurationId;
-    console.log(`used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);
+      let selectedConfig;
+      if (configs.length > 1) {
+        const choices = configs.map((d) => {
+          return {
+            name: `${d.AccessConfigurationName}(${d.AccessConfigurationId})`,
+            value: d
+          };
+        });
+        const answers = await inquirer.prompt([{
+          type: 'list',
+          name: 'configuration',
+          choices: choices,
+          message: `You have ${configs.length} access configurations, please select one:`
+        }]);
+        selectedConfig = answers.configuration;
+      } else {
+        selectedConfig = configs[0];
+      }
+
+      accessConfigurationId = selectedConfig.AccessConfigurationId;
+      console.log(`used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);
+    }
 
     const credential = await portal.createCloudCredential({
       accountId: accountId,
