@@ -18,7 +18,7 @@
 > is recommended.
 
 ```sh
-$ npm i @alicloud/sso-cli -g
+npm i @alicloud/sso-cli -g
 ```
 
 Have a test:
@@ -40,7 +40,7 @@ Alibaba Cloud SSO CLI v1.0.0
 ### Configure
 
 ```sh
-$ acs-sso configure
+acs-sso configure
 ```
 
 跟着提示输入即可。例如：
@@ -56,7 +56,7 @@ configuration done!
 ### Login
 
 ```sh
-$ acs-sso login
+acs-sso login
 ```
 
 如果你的身份下，有多个账号或多个访问配置，将会提示您选择账号和配置。登录成功后，profile 会绑定这份账号和配置。
@@ -64,10 +64,11 @@ $ acs-sso login
 下次登录将会使用登录成功后的缓存 STS 信息。
 
 #### 强制重新登录
+
 登录后会自动缓存，所以提供了 `--force` 来提供强制重新登录：
 
 ```sh
-$ acs-sso login --force
+acs-sso login --force
 ```
 
 #### 支持切换 Profile
@@ -75,7 +76,7 @@ $ acs-sso login --force
 默认情况下，使用的 profile 为 default。您可以使用 `--profile` 来支持不同的 profile 名字：
 
 ```sh
-$ acs-sso login --profile user1
+acs-sso login --profile user1
 ```
 
 未输入 `--profile` 的情况下，默认为上次成功登录的身份。
@@ -133,10 +134,11 @@ Configure Done!!!
 测试：
 
 ```sh
-$ aliyun ecs DescribeRegions --profile sso
+aliyun ecs DescribeRegions --profile sso
 ```
 
 ## License
+
 The [Apache License 2.0](/LICENSE)
 
 Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
