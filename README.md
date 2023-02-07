@@ -1,19 +1,14 @@
 # Alibaba Cloud SSO CLI
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![Node.js CI](https://github.com/aliyun/alibabacloud-sso-cli/actions/workflows/node.js.yml/badge.svg)](https://github.com/aliyun/alibabacloud-sso-cli/actions/workflows/node.js.yml)
 [![codecov][cov-image]][cov-url]
-[![David deps][david-image]][david-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/@alicloud/sso-cli.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@alicloud/sso-cli
-[travis-image]: https://img.shields.io/travis/aliyun/alibabacloud-sso-cli.svg?style=flat-square
-[travis-url]: https://travis-ci.com/aliyun/alibabacloud-sso-cli
 [cov-image]: https://codecov.io/gh/aliyun/alibabacloud-sso-cli/branch/master/graph/badge.svg
 [cov-url]: https://codecov.io/gh/aliyun/alibabacloud-sso-cli
-[david-image]: https://img.shields.io/david/aliyun/alibabacloud-sso-cli.svg?style=flat-square
-[david-url]: https://david-dm.org/aliyun/alibabacloud-sso-cli
 [download-image]: https://img.shields.io/npm/dm/@alicloud/sso-cli.svg?style=flat-square
 [download-url]: https://npmjs.org/package/@alicloud/sso-cli
 
