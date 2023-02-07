@@ -9,7 +9,8 @@
     "ci": "npm run lint && npm run cov && codecov",
     "test": "mocha -R spec test/**/*.test.js",
     "cov": "nyc -r html npm run test",
-    "lint": "eslint --fix ./bin ./lib ./test ./commands"
+    "lint": "eslint --fix ./bin ./lib ./test ./commands",
+    "build": "npm i --omit=dev && pkg ."
   },
   "keywords": [
     "AlibabaCloud",
@@ -36,6 +37,18 @@
     "minimist": "^1.2.5",
     "open": "^8.2.0",
     "proxy-agent": "^5.0.0"
+  },
+  "pkg": {
+    "assets": ["./node_modules/**/*.js"],
+    "targets": [
+      "node18-win-x64",
+      "node18-win-arm64",
+      "node18-linux-x64",
+      "node18-linux-arm64",
+      "node18-macos-x64",
+      "node18-macos-arm64"
+    ],
+    "outputPath": "dist"
   },
   "directories": {
     "lib": "lib",
