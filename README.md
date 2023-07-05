@@ -83,7 +83,7 @@ acs-sso login --profile user1
 
 #### 输出控制
 
-默认情况，输出的结果是适配于阿里云 CLI 外部进程模式：
+默认情况，输出的结果为一个 JSON 格式的数据：
 
 ```sh
 {
@@ -107,34 +107,9 @@ export SECURITY_TOKEN=CAIS****
 ## 配合阿里云 CLI
 
 ```sh
-$ aliyun configure --mode External --profile sso
-Configuring profile 'sso' in 'External' authenticate mode...
-Process Command [acs-sso login]: 
-Default Region Id [cn-hangzhou]: 
-Default Output Format [json]: json (Only support json)
-Default Language [zh|en] en: 
-Saving profile[sso] ...Done.
-
-Configure Done!!!
-..............888888888888888888888 ........=8888888888888888888D=..............
-...........88888888888888888888888 ..........D8888888888888888888888I...........
-.........,8888888888888ZI: ...........................=Z88D8888888888D..........
-.........+88888888 ..........................................88888888D..........
-.........+88888888 .......Welcome to use Alibaba Cloud.......O8888888D..........
-.........+88888888 ............. ************* ..............O8888888D..........
-.........+88888888 .... Command Line Interface(Reloaded) ....O8888888D..........
-.........+88888888...........................................88888888D..........
-..........D888888888888DO+. ..........................?ND888888888888D..........
-...........O8888888888888888888888...........D8888888888888888888888=...........
-............ .:D8888888888888888888.........78888888888888888888O ..............
-```
-
-注意点是 Process Command 的输入需要是 `acs-sso login`。
-
-测试：
-
-```sh
-aliyun ecs DescribeRegions --profile sso
+$ `acs-sso login --profile user1 --env`   # 将 Credentials 信息设置进环境变量
+$ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # 如果本地配置过 aliyun，通过此环境变量禁用配置，避免干扰
+$ aliyun sts GetCallerIdentity            # 直接使用环境变量中的 Credentials 信息
 ```
 
 ## License
