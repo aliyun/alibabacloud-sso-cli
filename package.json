@@ -31,6 +31,7 @@
     "commands"
   ],
   "dependencies": {
+    "cli-table3": "^0.6.3",
     "httpx": "^2.2.7",
     "inquirer": "^8.1.1",
     "kitx": "^2.1.0",
@@ -39,7 +40,9 @@
     "proxy-agent": "^5.0.0"
   },
   "pkg": {
-    "assets": ["./node_modules/**/*.js"],
+    "assets": [
+      "./node_modules/**/*.js"
+    ],
     "targets": [
       "node18-win-x64",
       "node18-win-arm64",
