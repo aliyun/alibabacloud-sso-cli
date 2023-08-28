@@ -32,6 +32,7 @@ Alibaba Cloud SSO CLI v1.0.0
    completion        auto completion
    login             login with SSO account
    configure         configure signin url
+   profile           list or delete profiles
 
 ```
 
@@ -103,6 +104,28 @@ export SECURITY_TOKEN=CAIS****
 ```
 
 上述环境变量可以与阿里云的相关工具进行配合。
+
+### Profile
+
+用于查看或删除已配置的 profile。
+
+```sh
+$ acs-sso profile
+┌───────────┬──────────────────┬─────────────────────────┬───────────┐
+│ Profile   │ Access ID        │ Access Configuration ID │ Status    │
+├───────────┼──────────────────┼─────────────────────────┼───────────┤
+│ default * │ 182837359590**** │ ac-00v3wh59ifjdxd4u**** │ Available │
+└───────────┴──────────────────┴─────────────────────────┴───────────┘
+```
+
+第一列展示的是 profile 名称，带星号，表明为当前默认的 profile。
+
+```sh
+$ acs-sso profile --delete --profile default
+Delete the profile 'default' successful.
+```
+
+你可以通过 `acs-sso help profile` 查看完整的操作及选项。
 
 ## 配合阿里云 CLI
 
