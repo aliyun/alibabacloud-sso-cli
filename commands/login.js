@@ -198,7 +198,7 @@ export default class Login {
       console.log(`export ALIBABACLOUD_ACCESS_KEY_ID=${data.access_key_id}`);
       console.log(`export ALIBABACLOUD_ACCESS_KEY_SECRET=${data.access_key_secret}`);
       console.log(`export SECURITY_TOKEN=${data.sts_token}`);
-      console.log(`# for terraform`);
+      // for terraform
       console.log(`export ALICLOUD_ACCESS_KEY=${data.access_key_id}`);
       console.log(`export ALICLOUD_SECRET_KEY=${data.access_key_secret}`);
       console.log(`export ALICLOUD_SECURITY_TOKEN=${data.sts_token}`);
