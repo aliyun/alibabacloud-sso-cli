@@ -132,6 +132,14 @@ Delete the profile 'default' successful.
 $ `acs-sso login --profile user1 --env`   # 将 Credentials 信息设置进环境变量
 $ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # 如果本地配置过 aliyun，通过此环境变量禁用配置，避免干扰
 $ aliyun sts GetCallerIdentity            # 直接使用环境变量中的 Credentials 信息
+{
+  "AccountId": "182837359590****",
+  "Arn": "acs:ram::182837359590****:assume***/aliyunreserved***/ye***@ye***.onmicrosoft.com",
+  "IdentityType": "AssumedRoleUser",
+  "PrincipalId": "36410118165466****:ye***@ye***.onmicrosoft.com",
+  "RequestId": "8AAAC6D1-F749-5B15-B428-D6EEB2E8****",
+  "RoleId": "36410118165466****"
+}
 ```
 
 ## License
