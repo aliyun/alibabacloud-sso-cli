@@ -37,7 +37,7 @@
     "kitx": "^2.1.0",
     "minimist": "^1.2.5",
     "open": "^8.2.0",
-    "proxy-agent": "^5.0.0"
+    "proxy-agent": "^6.3.1"
   },
   "pkg": {
     "assets": [
