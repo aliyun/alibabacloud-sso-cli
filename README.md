@@ -66,7 +66,7 @@ acs-sso login
 
 #### 强制重新登录
 
-登录后会自动缓存，所以提供了 `--force` 来提供强制重新登录：
+登录后会自动缓存 STS 信息，所以提供了 `--force` 来提供强制刷新 STS 信息：
 
 ```sh
 acs-sso login --force
