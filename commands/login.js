@@ -1,16 +1,14 @@
-'use strict';
+import os from 'os';
 
-const os = require('os');
+import open from 'open';
+import kitx from 'kitx';
+import inquirer from 'inquirer';
 
-const open = require('open');
-const kitx = require('kitx');
-const inquirer = require('inquirer');
+import SSO from '../lib/sso.js';
+import Portal from '../lib/portal.js';
+import { saveSTSCache, loadSTSCache, loadConfig } from '../lib/helper.js';
 
-const SSO = require('../lib/sso');
-const Portal = require('../lib/portal');
-const helper = require('../lib/helper');
-
-class Login {
+export default class Login {
   constructor(app) {
     this.app = app;
     this.name = 'login';
@@ -97,7 +95,7 @@ class Login {
     const profile = ctx.profile;
     if (!cache.accessToken || !cache.accessToken.expireTime || Date.now() >= cache.accessToken.expireTime) {
       cache.accessToken = await this.getAccessToken(ctx);
-      helper.saveSTSCache(cache);
+      saveSTSCache(cache);
     }
 
     const accessToken = cache.accessToken.token;
@@ -190,7 +188,7 @@ class Login {
     cache.current = profile;
     cache.profiles[profile] = cacheKey;
     cache.map[cacheKey] = {expireTime: result.expireTime, data: result.data};
-    helper.saveSTSCache(cache);
+    saveSTSCache(cache);
 
     return result;
   }
@@ -211,10 +209,10 @@ class Login {
 
   async run(argv) {
     const app = this.app;
-    const cache = helper.loadSTSCache();
+    const cache = loadSTSCache();
     const profile = argv.profile || cache.current || 'default';
 
-    const config = helper.loadConfig();
+    const config = loadConfig();
     const signinUrl = config.signinUrl;
     if (!signinUrl) {
       console.error(`Please use '${app.name} configure' to set signin url.`);
@@ -239,5 +237,3 @@ class Login {
     this.display(result.data, argv.env);
   }
 }
-
-module.exports = Login;
