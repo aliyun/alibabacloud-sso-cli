@@ -27,4 +27,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm i
     - run: npm run ci
-    - uses: codecov/codecov-action@v4
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: aliyun/alibabacloud-sso-cli
