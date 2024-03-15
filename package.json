@@ -6,12 +6,13 @@
     "acs-sso": "bin/acs-sso.js"
   },
   "scripts": {
-    "ci": "npm run lint && npm run cov && codecov",
+    "ci": "npm run lint && npm run cov",
     "test": "mocha -R spec test/**/*.test.js",
     "cov": "nyc -r html npm run test",
     "lint": "eslint --fix ./bin ./lib ./test ./commands",
     "build": "npm i --omit=dev && pkg ."
   },
+  "type": "module",
   "keywords": [
     "AlibabaCloud",
     "SSO",
@@ -20,9 +21,8 @@
   "author": "Jackson Tian",
   "license": "Apache-2.0",
   "devDependencies": {
-    "codecov": "^3.8.2",
     "eslint": "^8.54.0",
-    "mocha": "^9.2.2",
+    "mocha": "^10.3.0",
     "nyc": "^15.1.0"
   },
   "files": [
@@ -30,14 +30,17 @@
     "lib",
     "commands"
   ],
+  "engines": {
+    "node": ">= 14"
+  },
   "dependencies": {
     "cli-table3": "^0.6.3",
     "httpx": "^2.2.7",
-    "inquirer": "^8.1.1",
+    "inquirer": "^9.2.16",
     "kitx": "^2.1.0",
     "minimist": "^1.2.5",
-    "open": "^8.2.0",
-    "proxy-agent": "^5.0.0"
+    "open": "^10.1.0",
+    "proxy-agent": "^6.4.0"
   },
   "pkg": {
     "assets": [

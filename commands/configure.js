@@ -1,10 +1,8 @@
-'use strict';
+import inquirer from 'inquirer';
 
-const inquirer = require('inquirer');
+import { loadConfig, saveConfig } from '../lib/helper.js';
 
-const helper = require('../lib/helper');
-
-class Configure {
+export default class Configure {
   constructor(app) {
     this.app = app;
     this.name = 'configure';
@@ -19,7 +17,7 @@ class Configure {
   }
 
   async run(argv) {
-    const config = helper.loadConfig();
+    const config = loadConfig();
 
     if (argv.signinUrl) {
       config.signinUrl = argv.signinUrl;
@@ -34,9 +32,7 @@ class Configure {
       config.signinUrl = answer.signinUrl;
     }
 
-    helper.saveConfig(config);
+    saveConfig(config);
     console.log('configurate done!');
   }
 }
-
-module.exports = Configure;

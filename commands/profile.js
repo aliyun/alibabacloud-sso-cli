@@ -1,10 +1,8 @@
-'use strict';
+import Table from 'cli-table3';
 
-const Table = require('cli-table3');
+import {loadSTSCache, saveSTSCache} from '../lib/helper.js';
 
-const helper = require('../lib/helper');
-
-class Profile {
+export default class Profile {
   constructor(app) {
     this.app = app;
     this.name = 'profile';
@@ -28,7 +26,7 @@ class Profile {
   }
 
   async run(argv) {
-    const cache = helper.loadSTSCache();
+    const cache = loadSTSCache();
     if (argv.delete) {
       if (!argv.profile) {
         console.error(`Must specify profile name with --profile flag.`);
@@ -45,7 +43,7 @@ class Profile {
       if (cache.current === profile) {
         cache.current = '';
       }
-      helper.saveSTSCache(cache);
+      saveSTSCache(cache);
       console.log(`Delete the profile '${profile}' successful.`);
       return;
     }
@@ -87,5 +85,3 @@ class Profile {
     return;
   }
 }
-
-module.exports = Profile;

@@ -1,14 +1,20 @@
 #!/usr/bin/env node
 
-'use strict';
+import { URL, fileURLToPath } from 'url';
+import minimist from 'minimist';
+import { loadJSONSync } from 'kitx';
 
-const argv = require('minimist')(process.argv.slice(2));
+import CLI from '../lib/cli.js';
+import Login from '../commands/login.js';
+import Configure from '../commands/configure.js';
+import Profile from '../commands/profile.js';
 
-const CLI = require('../lib/cli');
-const pkg = require('../package.json');
+const pkgPath = new URL('../package.json', import.meta.url);
+const pkg = loadJSONSync(fileURLToPath(pkgPath));
+const argv = minimist(process.argv.slice(2));
 
 const app = new CLI('acs-sso', pkg.version, 'Alibaba Cloud SSO CLI');
-app.registerCommand(require('../commands/login'));
-app.registerCommand(require('../commands/configure'));
-app.registerCommand(require('../commands/profile'));
+app.registerCommand(Login);
+app.registerCommand(Configure);
+app.registerCommand(Profile);
 app.run(argv);

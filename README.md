@@ -14,8 +14,7 @@
 
 ## Installation
 
-> Requires node v7.6.0 or higher for ES2015 and async function support. The latest stable Node.js
-> is recommended.
+> Requires node v16 or higher for ES module support. The latest stable Node.js is recommended.
 
 ```sh
 npm i @alicloud/sso-cli -g
