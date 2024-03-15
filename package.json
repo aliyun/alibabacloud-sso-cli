@@ -7,8 +7,8 @@
   },
   "scripts": {
     "ci": "npm run lint && npm run cov",
-    "test": "mocha -R spec test/**/*.test.js",
-    "cov": "c8 -r html npm run test",
+    "test": "mocha -R spec test/*.test.js test/**/*.test.js",
+    "cov": "c8 -r=lcov -r=html -r=text -r=json npm run test",
     "lint": "eslint --fix ./bin ./lib ./test ./commands",
     "build": "npm i --omit=dev && pkg ."
   },
