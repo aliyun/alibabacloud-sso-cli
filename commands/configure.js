@@ -17,7 +17,7 @@ export default class Configure {
   }
 
   async run(argv) {
-    const config = loadConfig();
+    const config = await loadConfig();
 
     if (argv.signinUrl) {
       config.signinUrl = argv.signinUrl;
@@ -32,7 +32,7 @@ export default class Configure {
       config.signinUrl = answer.signinUrl;
     }
 
-    saveConfig(config);
+    await saveConfig(config);
     console.log('configurate done!');
   }
 }

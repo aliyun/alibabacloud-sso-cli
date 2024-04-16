@@ -1,0 +1,21 @@
+{
+    "current": "default",
+    "map": {
+        "accountid:configureid": {
+            "expireTime": 1699346328000,
+            "data": {
+                "mode": "StsToken",
+                "access_key_id":"akid",
+                "access_key_Secret":"aksecret",
+                "sts_token": "token"
+            }
+        }
+    },
+    "profiles": {
+        "default": "accountid:configureid"
+    },
+    "accessToken": {
+        "token": "token",
+        "expireTime": 1699342746963
+    }
+}

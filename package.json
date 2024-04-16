@@ -7,6 +7,7 @@
   },
   "scripts": {
     "ci": "npm run lint && npm run cov",
+    "test-unit": "c8 -r=html mocha -R spec",
     "test": "mocha -R spec test/*.test.js test/**/*.test.js",
     "cov": "c8 -r=lcov -r=html -r=text -r=json npm run test",
     "lint": "eslint --fix ./bin ./lib ./test ./commands",

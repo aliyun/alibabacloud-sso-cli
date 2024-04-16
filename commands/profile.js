@@ -1,6 +1,6 @@
 import Table from 'cli-table3';
 
-import {loadSTSCache, saveSTSCache} from '../lib/helper.js';
+import {loadSTSCache, saveSTSCache, removeProfile} from '../lib/helper.js';
 
 export default class Profile {
   constructor(app) {
@@ -26,7 +26,7 @@ export default class Profile {
   }
 
   async run(argv) {
-    const cache = loadSTSCache();
+    const cache = await loadSTSCache();
     if (argv.delete) {
       if (!argv.profile) {
         console.error(`Must specify profile name with --profile flag.`);
@@ -39,11 +39,9 @@ export default class Profile {
         process.exit(-1);
       }
 
-      cache.profiles[profile] = undefined;
-      if (cache.current === profile) {
-        cache.current = '';
-      }
-      saveSTSCache(cache);
+      removeProfile(cache, profile);
+
+      await saveSTSCache(cache);
       console.log(`Delete the profile '${profile}' successful.`);
       return;
     }
