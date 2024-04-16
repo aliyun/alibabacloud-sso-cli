@@ -6,7 +6,7 @@ import inquirer from 'inquirer';
 
 import SSO from '../lib/sso.js';
 import Portal from '../lib/portal.js';
-import { saveSTSCache, loadSTSCache, loadConfig } from '../lib/helper.js';
+import { saveSTSCache, loadSTSCache, loadConfig, addToProfile } from '../lib/helper.js';
 
 export default class Login {
   constructor(app) {
@@ -95,7 +95,7 @@ export default class Login {
     const profile = ctx.profile;
     if (!cache.accessToken || !cache.accessToken.expireTime || Date.now() >= cache.accessToken.expireTime) {
       cache.accessToken = await this.getAccessToken(ctx);
-      saveSTSCache(cache);
+      await saveSTSCache(cache);
     }
 
     const accessToken = cache.accessToken.token;
@@ -184,11 +184,13 @@ export default class Login {
     };
 
     // save into cache
-    const cacheKey = `${accountId}:${accessConfigurationId}`;
-    cache.current = profile;
-    cache.profiles[profile] = cacheKey;
-    cache.map[cacheKey] = {expireTime: result.expireTime, data: result.data};
-    saveSTSCache(cache);
+    addToProfile(cache, profile, {
+      accountId,
+      accessConfigurationId,
+      expireTime: result.expireTime,
+      data: result.data
+    });
+    await saveSTSCache(cache);
 
     return result;
   }
@@ -209,10 +211,10 @@ export default class Login {
 
   async run(argv) {
     const app = this.app;
-    const cache = loadSTSCache();
+    const cache = await loadSTSCache();
     const profile = argv.profile || cache.current || 'default';
 
-    const config = loadConfig();
+    const config = await loadConfig();
     const signinUrl = config.signinUrl;
     if (!signinUrl) {
       console.error(`Please use '${app.name} configure' to set signin url.`);
