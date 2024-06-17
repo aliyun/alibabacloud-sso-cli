@@ -24,7 +24,7 @@
   "devDependencies": {
     "eslint": "^8.54.0",
     "mocha": "^10.3.0",
-    "c8": "^9.1.0"
+    "c8": "^10.1.2"
   },
   "files": [
     "bin",
