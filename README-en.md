@@ -81,6 +81,13 @@ acs-sso login --profile user1
 
 If flag `--profile` is not provided, the tool uses the same profile from the last successful sign-in.
 
+#### Specify AccountID and Access Configuration
+
+You may explicitly specify the account ID and access configuration with flags `account_id` and `access_config` to sign in with.
+
+```sh
+acs-sso login --account_id 1234567890123456 --access_config admin
+```
 
 #### Export Credentials
 

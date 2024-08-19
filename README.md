@@ -85,6 +85,14 @@ acs-sso login --profile user1
 
 未输入 `--profile` 的情况下，默认为上次成功登录的身份。
 
+#### 指定账号和配置名
+
+如果您有多个账号或多个配置，可以使用 `--account_id` 和 `--access_config` 来指定：
+
+```sh
+acs-sso login --account_id 1234567890123456 --access_config admin
+```
+
 #### 输出控制
 
 默认情况，输出的结果为一个 JSON 格式的数据：
