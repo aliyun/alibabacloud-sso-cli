@@ -62,7 +62,7 @@ export default class Login {
     console.log(`Signin URL: ${result.VerificationUri}`);
     console.log(`User Code: ${result.UserCode}`);
     console.log();
-    console.log(`And now you can login to your browser with your SSO account.`);
+    console.log(`And now you can login into your account from the browser with your SSO configurations.`);
 
     const deviceCode = result.DeviceCode;
     // pending for login complete
