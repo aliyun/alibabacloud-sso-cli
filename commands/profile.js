@@ -1,6 +1,6 @@
 import Table from 'cli-table3';
 
-import {loadSTSCache, saveSTSCache, removeProfile} from '../lib/helper.js';
+import { loadSTSCache, saveSTSCache, removeProfile } from '../lib/helper.js';
 
 export default class Profile {
   constructor(app) {
@@ -35,14 +35,14 @@ export default class Profile {
 
       const profile = argv.profile;
       if (!cache.profiles[profile]) {
-        console.error(`The profile '${profile}' is inexist.`);
+        console.error(`The profile '${profile}' does not exist.`);
         process.exit(-1);
       }
 
       removeProfile(cache, profile);
 
       await saveSTSCache(cache);
-      console.log(`Delete the profile '${profile}' successful.`);
+      console.log(`Delete the profile '${profile}' successfully.`);
       return;
     }
 

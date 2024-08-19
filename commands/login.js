@@ -25,7 +25,15 @@ export default class Login {
       },
       env: {
         required: false,
-        description: 'print to environment variables'
+        description: 'output as environment variables'
+      },
+      account_id: {
+        required: false,
+        description: 'account id'
+      },
+      access_config: {
+        required: false,
+        description: 'access_config name for the account id'
       }
     };
   }
@@ -54,7 +62,7 @@ export default class Login {
     console.log(`Signin URL: ${result.VerificationUri}`);
     console.log(`User Code: ${result.UserCode}`);
     console.log();
-    console.log(`And now you can login in your browser with you SSO account.`);
+    console.log(`And now you can login to your browser with your SSO account.`);
 
     const deviceCode = result.DeviceCode;
     // pending for login complete
@@ -118,35 +126,52 @@ export default class Login {
         process.exit(-1);
       }
 
-      let sa;
-      if (accounts.length > 1) {
-        // 有多个账号时启动选择
-        const choices = accounts.map((d) => {
-          return {
-            name: `${d.DisplayName}(${d.AccountId})`,
-            value: d
-          };
-        });
-        const account = await inquirer.prompt([{
-          type: 'list',
-          name: 'account',
-          choices: choices,
-          message: `You have ${accounts.length} accounts, please select one:`
-        }]);
-        sa = account.account;
-      } else {
-        sa = accounts[0];
+      if (ctx.account_id) {
+        // use user defined accountId
+        accountId = ctx.account_id;
+        if (!accounts.find((d) => d.AccountId === accountId)) {
+          console.error(`The account '${accountId}' does not exist in your account list.`);
+          process.exit(-1);
+        }
       }
+      else {
+        let sa;
+        if (accounts.length > 1) {
+          // 有多个账号时启动选择
+          const choices = accounts.map((d) => {
+            return {
+              name: `${d.DisplayName}(${d.AccountId})`,
+              value: d
+            };
+          });
+          const account = await inquirer.prompt([{
+            type: 'list',
+            name: 'account',
+            choices: choices,
+            message: `You have ${accounts.length} accounts, please select one:`
+          }]);
+          sa = account.account;
+        } else {
+          sa = accounts[0];
+        }
 
-      accountId = sa.AccountId;
-      console.log(`used account: ${sa.DisplayName}(${accountId})`);
-
+        accountId = sa.AccountId;
+        console.log(`used account: ${sa.DisplayName}(${accountId})`);
+      }
       const configs = await portal.listAllAccessConfigurations({
         accountId: accountId
       });
 
       let selectedConfig;
-      if (configs.length > 1) {
+      // use user defined accessConfig name
+      if (ctx.access_config) {
+        selectedConfig = configs.find((d) => d.AccessConfigurationName === ctx.access_config);
+        if (!selectedConfig) {
+          console.error(`The access configuration '${ctx.access_config}' does not exist in your account.`);
+          process.exit(-1);
+        }
+      }
+      else if (configs.length > 1) {
         const choices = configs.map((d) => {
           return {
             name: `${d.AccessConfigurationName}(${d.AccessConfigurationId})`,
