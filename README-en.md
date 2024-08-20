@@ -12,10 +12,6 @@
 [download-image]: https://img.shields.io/npm/dm/@alicloud/sso-cli.svg?style=flat-square
 [download-url]: https://npmjs.org/package/@alicloud/sso-cli
 
-## English version
-
-You may check the full English version [here](README-en.md).
-
 ## Installation
 
 > Requires node v16 or higher for ES module support. The latest stable Node.js is recommended.
@@ -47,7 +43,7 @@ Alibaba Cloud SSO CLI v1.0.0
 acs-sso configure
 ```
 
-跟着提示输入即可。例如：
+Input your url in the prompt.
 
 ```sh
 $ acs-sso configure
@@ -55,7 +51,7 @@ $ acs-sso configure
 configuration done!
 ```
 
-上面的 signinUrl 可以在云 SSO 控制台首页上获取，每个目录的链接各不相同。
+The above url is from the CloudSSO portal as the `signinUrl`. Note: each instance has a different link.
 
 ### Login
 
@@ -63,39 +59,39 @@ configuration done!
 acs-sso login
 ```
 
-如果你的身份下，有多个账号或多个访问配置，将会提示您选择账号和配置。登录成功后，profile 会绑定这份账号和配置。
+If you have multiple accounts or access configurations, `acs-sso` will ask you to select which of accounts and the configs you would like to access with. Once the sign-in is completed, the profile will be linked with the specific account and configuration.
 
-下次登录将会使用登录成功后的缓存 STS 信息。
+You next login will use the cache StS credentials from your last successful sign-in.
 
-#### 强制重新登录
+#### Re-Sign-In/Refresh Credentials
 
-登录后会自动缓存 STS 信息，所以提供了 `--force` 来提供强制刷新 STS 信息：
+Flag `--force` is provided as an option to forcefully refresh the StS credentials.
 
 ```sh
 acs-sso login --force
 ```
 
-#### 支持切换 Profile
+#### Switch Profile Name
 
-默认情况下，使用的 profile 为 default。您可以使用 `--profile` 来支持不同的 profile 名字：
+You may use flag `--profile` to save the credentials to a different name, other than `default`.
 
 ```sh
 acs-sso login --profile user1
 ```
 
-未输入 `--profile` 的情况下，默认为上次成功登录的身份。
+If flag `--profile` is not provided, the tool uses the same profile from the last successful sign-in.
 
-#### 指定账号和配置名
+#### Specify AccountID and Access Configuration
 
-如果您有多个账号或多个配置，可以使用 `--account_id` 和 `--access_config` 来指定：
+You may explicitly specify the account ID and access configuration with flags `account_id` and `access_config` to sign in with.
 
 ```sh
 acs-sso login --account_id 1234567890123456 --access_config admin
 ```
 
-#### 输出控制
+#### Export Credentials
 
-默认情况，输出的结果为一个 JSON 格式的数据：
+The default sign-in credential output is in JSON format：
 
 ```sh
 {
@@ -106,7 +102,7 @@ acs-sso login --account_id 1234567890123456 --access_config admin
 }
 ```
 
-您可以使用 `--env` 这个 flag 来控制输出为环境变量的模式：
+Flag `--env` can convert it to environment variables, which can be exported like this:
 
 ```sh
 export ALIBABACLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
@@ -114,11 +110,11 @@ export ALIBABACLOUD_ACCESS_KEY_SECRET=GBubpmh****
 export SECURITY_TOKEN=CAIS****
 ```
 
-上述环境变量可以与阿里云的相关工具进行配合。
+This way, the environment variables can work with aliyun-cli.
 
 ### Profile
 
-用于查看或删除已配置的 profile。
+List or delete the profile names.
 
 ```sh
 $ acs-sso profile
@@ -129,21 +125,21 @@ $ acs-sso profile
 └───────────┴──────────────────┴─────────────────────────┴───────────┘
 ```
 
-第一列展示的是 profile 名称，带星号，表明为当前默认的 profile。
+The profile name with asterisk(*) is the profile currently in use.
 
 ```sh
 $ acs-sso profile --delete --profile default
 Delete the profile 'default' successful.
 ```
 
-你可以通过 `acs-sso help profile` 查看完整的操作及选项。
+You may check other profile options with `acs-sso help profile`.
 
-## 配合阿里云 CLI
+## Work with Aliyun-cli
 
 ```sh
-$ `acs-sso login --profile user1 --env`   # 将 Credentials 信息设置进环境变量
-$ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # 如果本地配置过 aliyun，通过此环境变量禁用配置，避免干扰
-$ aliyun sts GetCallerIdentity            # 直接使用环境变量中的 Credentials 信息
+$ `acs-sso login --profile user1 --env`   # Add the Credentials to the environment variables
+$ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # Disable the local existing profiles to avoid conflicts
+$ aliyun sts GetCallerIdentity            # Use the Credentials from the environment variables
 {
   "AccountId": "182837359590****",
   "Arn": "acs:ram::182837359590****:assume***/aliyunreserved***/ye***@ye***.onmicrosoft.com",

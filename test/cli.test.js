@@ -6,9 +6,9 @@ import { loadJSONSync } from 'kitx';
 
 const pkg = loadJSONSync(fileURLToPath(new URL('../package.json', import.meta.url)));
 
-describe('bin/acs-sso', function() {
+describe('bin/acs-sso', function () {
   it('acs-sso', async function () {
-    const {code, stdout, stderr} = await spawn('node', ['../bin/acs-sso.js'], {
+    const { code, stdout, stderr } = await spawn('node', ['../bin/acs-sso.js'], {
       cwd: fileURLToPath(new URL('./', import.meta.url))
     });
     deepStrictEqual(stderr, '');
@@ -26,7 +26,7 @@ describe('bin/acs-sso', function() {
   });
 
   it('acs-sso version', async function () {
-    const {code, stdout, stderr} = await spawn('node', ['../bin/acs-sso.js', 'version'], {
+    const { code, stdout, stderr } = await spawn('node', ['../bin/acs-sso.js', 'version'], {
       cwd: fileURLToPath(new URL('./', import.meta.url))
     });
     deepStrictEqual(stderr, '');
@@ -36,7 +36,7 @@ describe('bin/acs-sso', function() {
   });
 
   it('acs-sso help version', async function () {
-    const {code, stdout, stderr} = await spawn('node', ['../bin/acs-sso.js', 'help', 'version'], {
+    const { code, stdout, stderr } = await spawn('node', ['../bin/acs-sso.js', 'help', 'version'], {
       cwd: fileURLToPath(new URL('./', import.meta.url))
     });
     deepStrictEqual(stderr, '');
@@ -50,7 +50,7 @@ Description:
   });
 
   it('acs-sso help login', async function () {
-    const {code, stdout, stderr} = await spawn('node', ['../bin/acs-sso.js', 'help', 'login'], {
+    const { code, stdout, stderr } = await spawn('node', ['../bin/acs-sso.js', 'help', 'login'], {
       cwd: fileURLToPath(new URL('./', import.meta.url))
     });
     deepStrictEqual(stderr, '');
@@ -62,15 +62,17 @@ Description:
    login with SSO account
 
 Options:
-   --profile   [Optional] the profile name, default: 'default'
-   --force     [Optional] ignore cached credential
-   --env       [Optional] print to environment variables
+   --profile         [Optional] the profile name, default: 'default'
+   --force           [Optional] ignore cached credential
+   --env             [Optional] output as environment variables
+   --account_id      [Optional] account id
+   --access_config   [Optional] access_config name for the account id
 `);
     deepStrictEqual(code, 0);
   });
 
   it('acs-sso invalid', async function () {
-    const {code, stdout, stderr} = await spawn('node', ['../bin/acs-sso.js', 'invalid'], {
+    const { code, stdout, stderr } = await spawn('node', ['../bin/acs-sso.js', 'invalid'], {
       cwd: fileURLToPath(new URL('./', import.meta.url))
     });
     deepStrictEqual(stderr, '');
