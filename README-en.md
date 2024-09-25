@@ -105,9 +105,9 @@ The default sign-in credential output is in JSON format：
 Flag `--env` can convert it to environment variables, which can be exported like this:
 
 ```sh
-export ALIBABACLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
-export ALIBABACLOUD_ACCESS_KEY_SECRET=GBubpmh****
-export SECURITY_TOKEN=CAIS****
+export ALIBABA_CLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
+export ALIBABA_CLOUD_ACCESS_KEY_SECRET=GBubpmh****
+export ALIBABA_CLOUD_SECURITY_TOKEN=CAIS****
 ```
 
 This way, the environment variables can work with aliyun-cli.
@@ -138,7 +138,7 @@ You may check other profile options with `acs-sso help profile`.
 
 ```sh
 $ `acs-sso login --profile user1 --env`   # Add the Credentials to the environment variables
-$ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # Disable the local existing profiles to avoid conflicts
+$ export ALIBABA_CLOUD_IGNORE_PROFILE=TRUE # Disable the local existing profiles to avoid conflicts
 $ aliyun sts GetCallerIdentity            # Use the Credentials from the environment variables
 {
   "AccountId": "182837359590****",

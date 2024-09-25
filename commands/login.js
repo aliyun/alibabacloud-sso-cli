@@ -222,6 +222,10 @@ export default class Login {
 
   display(data, env) {
     if (env) {
+      console.log(`export ALIBABA_CLOUD_ACCESS_KEY_ID=${data.access_key_id}`);
+      console.log(`export ALIBABA_CLOUD_ACCESS_KEY_SECRET=${data.access_key_secret}`);
+      console.log(`export ALIBABA_CLOUD_SECURITY_TOKEN=${data.sts_token}`);
+      // old
       console.log(`export ALIBABACLOUD_ACCESS_KEY_ID=${data.access_key_id}`);
       console.log(`export ALIBABACLOUD_ACCESS_KEY_SECRET=${data.access_key_secret}`);
       console.log(`export SECURITY_TOKEN=${data.sts_token}`);

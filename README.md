@@ -109,9 +109,9 @@ acs-sso login --account_id 1234567890123456 --access_config admin
 您可以使用 `--env` 这个 flag 来控制输出为环境变量的模式：
 
 ```sh
-export ALIBABACLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
-export ALIBABACLOUD_ACCESS_KEY_SECRET=GBubpmh****
-export SECURITY_TOKEN=CAIS****
+export ALIBABA_CLOUD_ACCESS_KEY_ID=STS.NUyPeEoab****
+export ALIBABA_CLOUD_ACCESS_KEY_SECRET=GBubpmh****
+export ALIBABA_CLOUD_SECURITY_TOKEN=CAIS****
 ```
 
 上述环境变量可以与阿里云的相关工具进行配合。
@@ -142,7 +142,7 @@ Delete the profile 'default' successful.
 
 ```sh
 $ `acs-sso login --profile user1 --env`   # 将 Credentials 信息设置进环境变量
-$ export ALIBABACLOUD_IGNORE_PROFILE=TRUE # 如果本地配置过 aliyun，通过此环境变量禁用配置，避免干扰
+$ export ALIBABA_CLOUD_IGNORE_PROFILE=TRUE # 如果本地配置过 aliyun，通过此环境变量禁用配置，避免干扰
 $ aliyun sts GetCallerIdentity            # 直接使用环境变量中的 Credentials 信息
 {
   "AccountId": "182837359590****",
