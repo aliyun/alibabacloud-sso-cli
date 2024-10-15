@@ -20,6 +20,7 @@ describe('bin/acs-sso', function () {
    login             login with SSO account
    configure         configure signin url
    profile           list or delete profiles
+   doc               open help documentation in browser
 
 `);
     deepStrictEqual(code, 0);
@@ -85,6 +86,7 @@ Alibaba Cloud SSO CLI v${pkg.version}
    login             login with SSO account
    configure         configure signin url
    profile           list or delete profiles
+   doc               open help documentation in browser
 
 `);
     deepStrictEqual(code, 255);
