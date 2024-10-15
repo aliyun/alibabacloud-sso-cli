@@ -120,7 +120,6 @@ export default class Login {
       [accountId, accessConfigurationId] = cache.profiles[profile].split(':');
     } else {
       const accounts = await portal.listAllAccounts();
-
       if (accounts.length === 0) {
         console.error(`You don't have access to any account.`);
         process.exit(-1);
@@ -128,13 +127,18 @@ export default class Login {
 
       if (ctx.account_id) {
         // use user defined accountId
-        accountId = ctx.account_id;
-        if (!accounts.find((d) => d.AccountId === accountId)) {
-          console.error(`The account '${accountId}' does not exist in your account list.`);
+        const sa = accounts.find((d) => {
+          return d.AccountId === ctx.account_id;
+        });
+
+        if (!sa) {
+          console.error(`The account '${ctx.account_id}' does not exist in your account list.`);
           process.exit(-1);
         }
-      }
-      else {
+
+        accountId = sa.AccountId;
+        console.log(`Used account: ${sa.DisplayName}(${accountId})`);
+      } else {
         let sa;
         if (accounts.length > 1) {
           // 有多个账号时启动选择
@@ -156,8 +160,9 @@ export default class Login {
         }
 
         accountId = sa.AccountId;
-        console.log(`used account: ${sa.DisplayName}(${accountId})`);
+        console.log(`Used account: ${sa.DisplayName}(${accountId})`);
       }
+
       const configs = await portal.listAllAccessConfigurations({
         accountId: accountId
       });
@@ -170,8 +175,7 @@ export default class Login {
           console.error(`The access configuration '${ctx.access_config}' does not exist in your account.`);
           process.exit(-1);
         }
-      }
-      else if (configs.length > 1) {
+      } else if (configs.length > 1) {
         const choices = configs.map((d) => {
           return {
             name: `${d.AccessConfigurationName}(${d.AccessConfigurationId})`,
@@ -190,7 +194,7 @@ export default class Login {
       }
 
       accessConfigurationId = selectedConfig.AccessConfigurationId;
-      console.log(`used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);
+      console.log(`Used access configuration: ${selectedConfig.AccessConfigurationName}(${accessConfigurationId})`);
     }
 
     const credential = await portal.createCloudCredential({
@@ -250,7 +254,15 @@ export default class Login {
       process.exit(-1);
     }
 
-    const ctx = { cache, config, signinUrl: new URL(signinUrl), profile };
+    const ctx = {
+      cache,
+      config,
+      signinUrl: new URL(signinUrl),
+      profile,
+      // argv 默认解析为了 number
+      account_id: String(argv.account_id),
+      access_config: argv.access_config
+    };
 
     if (!argv.force) {
       // 没有强制登录，优先检查缓存
