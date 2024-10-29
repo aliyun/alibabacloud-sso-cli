@@ -260,7 +260,7 @@ export default class Login {
       signinUrl: new URL(signinUrl),
       profile,
       // argv 默认解析为了 number
-      account_id: String(argv.account_id),
+      account_id: (typeof argv.account_id === 'undefined') ? '' : String(argv.account_id),
       access_config: argv.access_config
     };
 
